@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c23784e-98f8-4cd3-bab9-8a4de8dbd17b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="171"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="823"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="id41blg"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="605"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="383"/>
+	<parameter name="organization" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[new BigDecimal(1000003)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="days_count" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[new BigDecimal(1)]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select   r.r_request_id as 请求ID,r.record_id as 设备位置ID需结合表名使用,  r.r_requesttype_id as 事由分类ID, r.ad_org_id as 部门ID,
+                 r.r_category_id as 专业分类ID, r.m_attributesetinstance_id as 设备组ID,r.m_productspent_id as 子设备ID, r.m_product_id as 零件ID, r.R_Status_ID as 事由状态ID,
+                 
+                r.documentno as 单号, r.documentno  || r.summary  as 事由概要,  r.r_resolution_id as 验收状态ID,
+                 ml.value as 设备安装地点,
+                 ma.description as 设备组名称,
+                 mp.name as 子设备名称,mp.value as 子设备型号,
+                 ru.result as 工作过程记录,
+                 au.name as  更新人,ru.created as 记录时间,
+                  aa.title as 附件格式, aa.binarydata as 附件内容,ru.descriptionurl as 图片链接
+from r_request r  inner  join r_requestupdate ru  on r.r_request_id=ru.r_request_id
+                                       left     join  m_locator ml  on r.record_id=ml.m_locator_id   
+                                       left    join  m_attributesetinstance ma  on r.m_attributesetinstance_id=ma.m_attributesetinstance_id 
+                                      left    join  m_product mp  on r.m_productspent_id=mp.m_product_id  
+                                       inner    join  ad_user au  on ru.updatedby=au.ad_user_id 
+                                       left    join  ad_attachment aa  on ru.r_requestupdate_id=aa.record_id
+                                       where   ru.created<=now() and ru.created >now()-($P{days_count}::text || ' day')::interval
+                                        and  date_part('year',ru.created )= date_part('year',now())
+                                      and ru.result not  like  '%同意接班：已了解上一班交接的内容，现场情况符合生产系统记录%' 
+                                      and ru.result not  like  '%电视监控系统设备情况【正常】%' 
+                                      and ru.result not  like  '%请求交班：现场设备变化情况已记入生产系统设备状况，其他情况已交接班请求中，实际情况符合系统记录%' 
+                                        and ru.result not  like  '% 大堤设防情况：布防中%' 
+                                         and ru.result not  like  '%（生产科专工）%' 
+                                          and ru.result not  like  '%董建君在车间主任确认中%' 
+                                           and ru.result not  like  '%朱俊卿审批通过%' 
+                                           and ru.result not  like  '% Escalated%' 
+                                         and r.ad_org_id=$P{organization}
+                                       ORDER BY  r.r_request_id,ru.r_requestupdate_id]]>
+	</queryString>
+	<field name="请求id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="请求id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="设备位置id需结合表名使用" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="设备位置id需结合表名使用"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="事由分类id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="事由分类id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="部门id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="部门id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="专业分类id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="专业分类id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="设备组id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="设备组id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="子设备id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="子设备id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="零件id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="零件id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="事由状态id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="事由状态id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="单号" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="单号"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="事由概要" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="事由概要"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="验收状态id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="验收状态id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_request"/>
+	</field>
+	<field name="设备安装地点" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="设备安装地点"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_locator"/>
+	</field>
+	<field name="设备组名称" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="设备组名称"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_attributesetinstance"/>
+	</field>
+	<field name="子设备名称" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="子设备名称"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+	</field>
+	<field name="子设备型号" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="子设备型号"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+	</field>
+	<field name="工作过程记录" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="工作过程记录"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_requestupdate"/>
+	</field>
+	<field name="更新人" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="更新人"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="记录时间" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="记录时间"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_requestupdate"/>
+	</field>
+	<field name="附件格式" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="附件格式"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_attachment"/>
+	</field>
+	<field name="附件内容" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="附件内容"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_attachment"/>
+	</field>
+	<field name="图片链接" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="图片链接"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="r_requestupdate"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="12" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="330" y="8" width="181" height="42" uuid="dcb5d386-6a23-4df6-b140-ed97b7b3e659"/>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<line>
+				<reportElement x="-10" y="38" width="791" height="2" uuid="df3b890b-45d2-4e43-84e2-5358ed0b02c4">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="310" y="4" width="390" height="30" uuid="7e79535b-32c1-4e1b-9a0f-c8ebe1ca237f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="NewFontFamily"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{工作过程记录}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="304" y="5" width="2" height="29" uuid="b9c84ca8-decc-46f1-8039-12be59b9a3f5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField pattern="yy/M/d H:mm ">
+				<reportElement x="730" y="6" width="90" height="17" uuid="23f359eb-8652-4653-a4c1-b11ecc55bd4c"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{记录时间}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="700" y="4" width="30" height="13" uuid="afbf473a-5ec2-4029-8529-b23dbe06040d"/>
+				<textElement>
+					<font fontName="NewFontFamily" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{更新人}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="-11" y="3" width="311" height="30" uuid="33542be1-0f73-4e0d-bda4-d45af1397b3a"/>
+				<textElement markup="styled">
+					<font fontName="NewFontFamily"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{事由概要}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="700" y="21" width="60" height="14" uuid="1205e434-1ce0-4baa-94b6-d1b49be5e62e"/>
+				<textElement>
+					<font fontName="NewFontFamily" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{附件格式}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
+				<reportElement x="760" y="21" width="60" height="15" uuid="646646d6-af4b-4368-9859-d20e37b80774"/>
+				<textElement>
+					<font fontName="NewFontFamily" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{图片链接}]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA[$F{图片链接}]]></hyperlinkReferenceExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

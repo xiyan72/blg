@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" columnCount="2" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="300" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="1c23784e-98f8-4cd3-bab9-8a4de8dbd17b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="171"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="823"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="id41blg"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="605"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="383"/>
+	<parameter name="发货单号" class="java.math.BigDecimal" evaluationTime="Early"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT ml.updatedby,mp.name,ml.qtyinternaluse as 发放数量,ml.m_inventory_id
+   FROM  m_inventoryline  ml
+   
+    LEFT JOIN m_product mp ON ml.m_product_id= mp.m_product_id
+    
+	 where  ml.m_inventory_id=$P{发货单号}
+	
+	 order  by  ml.description]]>
+	</queryString>
+	<field name="updatedby" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="updatedby"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventoryline"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+	</field>
+	<field name="发放数量" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="发放数量"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventoryline"/>
+	</field>
+	<field name="m_inventory_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="m_inventory_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventoryline"/>
+	</field>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<line>
+				<reportElement x="-10" y="28" width="275" height="1" uuid="df3b890b-45d2-4e43-84e2-5358ed0b02c4">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="65" y="2" width="90" height="20" uuid="d7db4b2b-e5a7-415d-bb92-e2f57294e8c4"/>
+				<textElement>
+					<font fontName="文泉正黑" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="2" width="100" height="20" uuid="bdc797c6-87d2-46e0-a619-3c82950ba094"/>
+				<textElement textAlignment="Left">
+					<font fontName="文泉正黑"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{发放数量}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-10" y="2" width="74" height="20" uuid="596e86de-2cfd-4d3b-9420-ef8ac67dd499"/>
+				<textElement textAlignment="Left">
+					<font fontName="文泉正黑"/>
+				</textElement>
+				<text><![CDATA[物资名称:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="157" y="2" width="72" height="20" uuid="5f2763b6-7909-4ca5-ac45-6482396b5353"/>
+				<textElement textAlignment="Left">
+					<font fontName="文泉正黑"/>
+				</textElement>
+				<text><![CDATA[发放数量:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="260" y="4" width="6" height="16" uuid="2c80439a-f2d1-45d5-ac1b-7877fcd8e12d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="148" y="6" width="1" height="11" uuid="934ebb9b-0473-4216-8bda-532d6bb6a298">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

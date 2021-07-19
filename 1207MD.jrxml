@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="1c23784e-98f8-4cd3-bab9-8a4de8dbd17b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="171"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="823"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="235id41blg"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="605"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="383"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="ireport.jasperserver.url" value="http://192.168.1.123:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/1207MD_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/1207MD"/>
+	<parameter name="description" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("%2021.04.12")]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT m.updatedby,  au.name as 签收人,m.updated , m.description , m.m_inventory_id,m.documentno as 单号,m.description
+  
+   FROM  m_inventory  m
+   
+    LEFT JOIN ad_user au ON m.updatedby = au.ad_user_id
+    
+	 where  m.description like $P{description}
+	
+	 order  by  m.description]]>
+	</queryString>
+	<field name="updatedby" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="updatedby"/>
+		<property name="com.jaspersoft.studio.field.label" value="updatedby"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventory"/>
+	</field>
+	<field name="签收人" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="签收人"/>
+		<property name="com.jaspersoft.studio.field.label" value="签收人"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="updated" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="updated"/>
+		<property name="com.jaspersoft.studio.field.label" value="updated"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventory"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="description"/>
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventory"/>
+	</field>
+	<field name="m_inventory_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="m_inventory_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="m_inventory_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventory"/>
+	</field>
+	<field name="单号" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="单号"/>
+		<property name="com.jaspersoft.studio.field.label" value="单号"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventory"/>
+	</field>
+	<field name="COLUMN_7" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="description"/>
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_inventory"/>
+	</field>
+	<background>
+		<band height="12" splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="67" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="227" y="2" width="62" height="15" uuid="d7db4b2b-e5a7-415d-bb92-e2f57294e8c4">
+					<printWhenExpression><![CDATA[NOT($F{updated}.equals(null))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="文泉正黑" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{签收人}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yy/M/d h:mm a">
+				<reportElement isPrintRepeatedValues="false" x="60" y="2" width="113" height="17" uuid="243216b4-c5eb-4851-aa9f-afb75509af4c"/>
+				<textElement>
+					<font fontName="文泉正黑" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{updated}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="330" y="1" width="126" height="17" uuid="bdc797c6-87d2-46e0-a619-3c82950ba094"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="文泉正黑" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="1" width="59" height="16" uuid="fc7ed677-876a-41fd-90fe-af199b68578d"/>
+				<textElement textAlignment="Left">
+					<font fontName="文泉正黑" size="8"/>
+				</textElement>
+				<text><![CDATA[签收时间:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="2" width="48" height="15" uuid="b8dae40e-53ad-4ab0-bad4-e8520bbc1ced"/>
+				<textElement textAlignment="Left">
+					<font fontName="文泉正黑" size="8"/>
+				</textElement>
+				<text><![CDATA[签收人:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="2" width="34" height="10" uuid="07e92798-e03f-4ac7-abc4-54df645a56b7"/>
+				<textElement textAlignment="Left">
+					<font fontName="文泉正黑" size="8"/>
+				</textElement>
+				<text><![CDATA[概况:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="500" y="2" width="48" height="16" uuid="73b1c409-df07-4e8d-8759-8221d64c3191"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="文泉正黑"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{单号}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="460" y="2" width="40" height="16" uuid="e2b91e18-3407-4144-b451-26becc4b55b7"/>
+				<textElement textAlignment="Right">
+					<font fontName="文泉正黑"/>
+				</textElement>
+				<text><![CDATA[单号:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="3" y="26" width="545" height="35" uuid="c5f47c6b-7956-4569-902e-16fb1a17e958"/>
+				<subreportParameter name="发货单号">
+					<subreportParameterExpression><![CDATA[$F{m_inventory_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["1207MDL.jrxml"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="0" y="-2" width="559" height="3" uuid="a5e29bc6-8ff9-4fe2-ba56-f5c83e913688"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
